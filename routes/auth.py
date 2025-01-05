@@ -32,9 +32,7 @@ def signup_user(user:UserCreate,db: Session = Depends(get_db)):
 
 @router.post('/login')
 def login_user(user:UserLogin,db :Session = Depends(get_db)):
-    
     print("called")
-    
     user_db = db.query(User).filter(User.email == user.email).first()
     if not user_db:
         raise HTTPException(400,'User with this email does not exist')

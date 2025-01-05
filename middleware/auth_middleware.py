@@ -4,6 +4,8 @@ import jwt
 
 
 def auth_middleware(x_auth_token = Header()):
+    
+    print(x_auth_token)
     try:
         if not x_auth_token:
             raise HTTPException(401,"No auth token , verification failed")

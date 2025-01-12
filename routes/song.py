@@ -39,14 +39,18 @@ def upload_song(song:UploadFile =File(...),
             song_name = song_name,
             hex_code = hex_code,
         )
-    
-        print(new_song.song_name)
-        print(new_song.artist)
 
-        db.add(new_song)
+        db.add(new_song)    
         db.commit()
         db.refresh(new_song)
 
         return new_song
     except:
         print("exception") 
+        
+@router.get('/list',status_code=200)
+def list_songs(db : Session = Depends(get_db),
+               auth_dict = Depends(auth_middleware)
+               ):
+    songs = db.query(Song).all()
+    return songs
